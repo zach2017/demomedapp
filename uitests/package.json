@@ -1,0 +1,14 @@
+{
+  "name": "uitests",
+  "version": "1.0.0",
+  "main": "example.spec.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^22.10.1"
+  }
+}
