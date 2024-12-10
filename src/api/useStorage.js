@@ -3,9 +3,6 @@ import React from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 import StorageContext from '../context/StorageContext'
 
-//const [data, setData, error] = useDexie('myKey', initialValue);
-
-
 async function getWebStorage(key, baseURL) {
     let value = null
     let setValue = () => {}

@@ -36,10 +36,11 @@ import {
   Camera as CameraIcon
 } from '@mui/icons-material';
 import sampleData from '../../utilities/sampledata'
+import BottomNav from '../Molecules/BottomNav';
 
 
 const TaesAppLayout = () => {
-  const [mode, setMode] = useState('light');
+  const [mode, setMode] = useState('dark');
   const [bottomValue, setBottomValue] = useState(0);
 
   const theme = useMemo(
@@ -177,18 +178,7 @@ const TaesAppLayout = () => {
           </Box>
 
           {/* Second row with icon buttons */}
-          <BottomNavigation 
-            value={bottomValue} 
-            onChange={(event, newValue) => {
-              setBottomValue(newValue);
-            }}
-            showLabels
-          >
-            <BottomNavigationAction label="Home" icon={<HomeIcon />} />
-            <BottomNavigationAction label="Mail" icon={<MailIcon />} />
-            <BottomNavigationAction label="Calendar" icon={<CalendarIcon />} />
-            <BottomNavigationAction label="Clock" icon={<ClockIcon />} />
-          </BottomNavigation>
+         <BottomNav/>
         </Paper>
       </Box>
     </ThemeProvider>
