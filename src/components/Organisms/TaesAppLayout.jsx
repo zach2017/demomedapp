@@ -84,7 +84,7 @@ const TaesAppLayout = () => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              App Title
+             TAES
             </Typography>
 
             <IconButton color="inherit">
@@ -103,31 +103,12 @@ const TaesAppLayout = () => {
             <IconButton color="inherit">
               <WifiIcon />
             </IconButton>
-            <Button 
-              color="inherit" 
-              startIcon={<SearchIcon />}
-              sx={{ ml: 1 }}
-            >
-              Search
-            </Button>
           </Toolbar>
         </AppBar>
 
         {/* Filter Section */}
         <Paper elevation={1} sx={{ p: 2 }}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <TextField
-              size="small"
-              placeholder="Search..."
-              sx={{ maxWidth: 300 }}
-            />
-            <Button
-              variant="outlined"
-              startIcon={<FilterListIcon />}
-            >
-              Filter
-            </Button>
-          </Box>
+    
         </Paper>
 
         {/* Main Content */}
