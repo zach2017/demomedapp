@@ -130,8 +130,7 @@ const TaesAppLayout = () => {
     
     switch (currentSection) {
       case 'patients':
-        return <NewPatientForm  open={open}
-        close={close} selectedSection={currentSection}
+        return <NewPatientForm selectedSection={currentSection}
         onSectionChange={handleSectionChange} />;
       case 'TUCCS':
         return <TUCCSComponent />;
