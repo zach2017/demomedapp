@@ -16,6 +16,13 @@ import {
   CssBaseline,
 } from '@mui/material';
 
+import {
+  Person,
+  CalendarMonth,
+  Mail,
+  Print
+} from '@mui/icons-material';
+
 import GridList from '../Molecules/GridList'
 
 import {
@@ -37,11 +44,45 @@ import {
 } from '@mui/icons-material';
 import sampleData from '../../utilities/sampledata'
 import BottomNav from '../Molecules/BottomNav';
+import FromDialog from './Forms/FormDialog';
+import FormDialog from './Forms/FormDialog';
+import FormComponent from '../Molecules/FormComponent';
+import NewPatientForm from './Forms/NewPatientForm';
 
+
+// Mock components for different sections
+const PatientComponent = () => (
+  <Box sx={{ p: 3 }}>
+   <GridList items={sampleData} /> 
+  </Box>
+);
+
+const TUCCSComponent = () => (
+  <Box sx={{ p: 3 }}>
+    <Typography variant="h5">TUCCS Section</Typography>
+    <Typography>Your TUCCS content goes here</Typography>
+  </Box>
+);
+
+const GallaryComponent = () => (
+  <Box sx={{ p: 3 }}>
+    <Typography variant="h5">Gallary Section</Typography>
+    <Typography>Your Gallary content goes here</Typography>
+  </Box>
+);
+
+const TriageComponent = () => (
+  <Box sx={{ p: 3 }}>
+    <Typography variant="h5">Triage Section</Typography>
+    <Typography>Your Triage content goes here</Typography>
+  </Box>
+);
 
 const TaesAppLayout = () => {
   const [mode, setMode] = useState('dark');
   const [bottomValue, setBottomValue] = useState(0);
+  const [currentSection, setCurrentSection] = useState('patientList');
+  const [formOpen, setFormOpen] = useState(false);
 
   const theme = useMemo(
     () =>
@@ -68,6 +109,41 @@ const TaesAppLayout = () => {
     },
   };
 
+  const [openForm, setOpenForm] = useState(false);
+
+  const handleOpen = () => {
+    
+    setOpenForm(true);
+  };
+
+  const handleClose = () => {
+    setOpenForm(false);
+  };
+
+  var isOpen = openForm
+
+  const handleSectionChange = (newSection) => {
+    setCurrentSection(newSection);
+  };
+
+  const renderComponent = () => {
+    
+    switch (currentSection) {
+      case 'patients':
+        return <NewPatientForm  open={open}
+        close={close} selectedSection={currentSection}
+        onSectionChange={handleSectionChange} />;
+      case 'TUCCS':
+        return <TUCCSComponent />;
+      case 'Triage':
+        return <TriageComponent />;
+      case 'Gallary':
+          return <GallaryComponent />;
+      default:
+        return <PatientComponent />;
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -80,6 +156,7 @@ const TaesAppLayout = () => {
               edge="start"
               color="inherit"
               sx={{ mr: 2 }}
+              onClick = { handleOpen }
             >
               <MenuIcon />
             </IconButton>
@@ -113,53 +190,41 @@ const TaesAppLayout = () => {
 
         {/* Main Content */}
         <Container sx={{ flexGrow: 1, py: 2 }}>
-        <GridList items={sampleData} />
-        </Container>
 
-        {/* Footer */}
+       {/* {openForm ? <FormDialog  close={handleClose} /> :
+        <GridList items={sampleData} /> 
+        }*/}
+        </Container>
+          {/* Main Content */}
+      <Container 
+        component="main" 
+        
+        sx={{ 
+          flexGrow: 1, 
+          display: 'flex', 
+          flexDirection: 'column',
+          alignContent: 'center',
+          justifyContent: 'center',
+          py: 3
+        }}
+      >
         <Paper 
           elevation={3} 
           sx={{ 
-            width: '100%', 
-            position: 'sticky', 
-            bottom: 0 
+            flexGrow: 1,
+            minHeight: '70vh',
+            display: 'flex',
+            flexDirection: 'column'
           }}
         >
-          {/* First row of buttons */}
-          <Box 
-            sx={{ 
-              display: 'flex', 
-              justifyContent: 'space-around', 
-              p: 1,
-              borderBottom: 1,
-              borderColor: 'divider'
-            }}
-          >
-           <Button 
-              variant="contained" 
-              startIcon={<BusinessIcon />}
-              sx={buttonStyles}
-            >
-              TCCC
-            </Button>
-            <Button 
-              variant="contained" 
-              startIcon={<PersonIcon />}
-              sx={buttonStyles}
-            >
-              Patient
-            </Button>
-            <Button 
-              variant="contained" 
-              startIcon={<CameraIcon />}
-              sx={buttonStyles}
-            >
-              Capture
-            </Button>
-          </Box>
+          {renderComponent()}
+        </Paper>
+      </Container>
 
-          {/* Second row with icon buttons */}
-         <BottomNav/>
+       <Paper>
+        <BottomNav   selectedSection={currentSection}
+        onSectionChange={handleSectionChange} />
+        
         </Paper>
       </Box>
     </ThemeProvider>

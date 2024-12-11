@@ -7,12 +7,14 @@ import CryptoJS from 'crypto-js';
 
     const getDecryptedValue = () => {
         try {
-              const secretKey =+ 'x1' + `${process.env.TAES_KEY}` 
+          if (key) {
+          const secretKey =+ 'x1' //+ `${process.env.TAES_KEY}` 
           const encryptedValue = localStorage.getItem(key);
           if (encryptedValue) {
             const bytes = CryptoJS.AES.decrypt(encryptedValue, secretKey);
             const decryptedValue = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
             return decryptedValue;
+          }
           }
           return defaultValue;
         } catch (error) {
@@ -25,7 +27,7 @@ import CryptoJS from 'crypto-js';
 
 
     useEffect(() => {
-        const secretKey =`${process.env.TAES_KEY}`
+        const secretKey = 'x1' //${process.env.TAES_KEY}`
         try {
           // Convert value to string and encrypt it
           const valueStr = JSON.stringify(value);

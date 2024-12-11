@@ -2,12 +2,12 @@
 import React from 'react'
 
 // MUI 
-import { Autocomplete, Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField } from '@mui/material'
+import { Autocomplete, Button, Dialog, DialogActions, Paper, DialogContent, DialogTitle, Stack, TextField } from '@mui/material'
 
 // custom
-import { DatePicker } from '@mui/x-date-pickers'
-import useStorage from '../api/useStorage'
-import useEncryptedStorage from '../api/useEncryptedStorage'
+
+import useStorage from '../../../api/useStorage'
+import useEncryptedStorage from '../../../api/useEncryptedStorage'
 
 
 const defaultPatient = {
@@ -24,37 +24,31 @@ const defaultPatient = {
 function NewPatientForm(props) {
     const {
         open,
-        close
+        close,
+        onSectionChange,
+        selectedSection
     } = props
 
     const [patients, setPatients] = useStorage('patients', {})
-    const [patientsEncrypted, setEncryptedPatients ] = useEncryptedStorage('encryptedPatients', {})
+   // const [patientsEncrypted, setEncryptedPatients ] = useEncryptedStorage('encryptedPatients', {})
     const [patient, setPatient] = React.useState(defaultPatient)
 
     function handleClose() {
+        onSectionChange("List")
         setPatient(defaultPatient)
         close()
     }
 
     function submit() {
         setPatients({...patients, [patient.dodid]: patient})
-        setEncryptedPatients({...patientsEncrypted, [patient.dodid]: patient})
+       // setEncryptedPatients({...patientsEncrypted, [patient.dodid]: patient})
         setPatient(defaultPatient)
         close()
     }
 
     return (
-        <Dialog
-            open={open}
-            onClose={handleClose}
-            maxWidth="lg"
-            fullWidth
-            scroll="body"
-        >
-            <DialogTitle align="center">
-                New Patient
-            </DialogTitle>
-            <DialogContent>
+        <Paper elevation={3} sx={{ maxWidth: 800,  p: 2 }}>
+            
                 <Stack spacing={1} sx={{ marginTop: 1}}>
                     <TextField
                         label="Patient Identifier"
@@ -75,7 +69,7 @@ function NewPatientForm(props) {
                         onChange={event => setPatient({ ...patient, lastName: event.target.value })}
                         fullWidth
                     />
-                    <DatePicker
+                    <TextField
                         label="Date Of Birth"
                         fullWidth
                         value={patient.dob}
@@ -111,8 +105,7 @@ function NewPatientForm(props) {
                         onChange={(_, newValue) => setPatient({...patient, allergies: newValue})}
                     />
                 </Stack>
-            </DialogContent>
-            <DialogActions>
+       
                 <Button
                     onClick={handleClose}
                     size="large"
@@ -128,8 +121,7 @@ function NewPatientForm(props) {
                 >
                     Submit
                 </Button>
-            </DialogActions>
-        </Dialog>
+        </Paper>
     )
 }
 

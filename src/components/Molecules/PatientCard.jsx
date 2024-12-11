@@ -8,7 +8,7 @@ export default function PatientCard() {
     <Card>
         <CardActionArea
             aria-label={`Open 1`}
-            onClick={() => navigate(`/patients/ae/1`)}
+            onClick={() => alert("Show Patient  Info")}
         >
            <CardHeader
                 title={`Name`}
@@ -24,7 +24,7 @@ export default function PatientCard() {
             <ButtonGroup>
                 <Button
                     variant="contained"
-                    onClick={() => setTccOpen(true)}
+                    onClick={() => alert("Show Patient  Info") }
                 >
                     TCCC
                 </Button>
