@@ -42,6 +42,10 @@ function App() {
 
   const [themeMode, setThemeMode] = useState("dark");    
 
+  window.addEventListener('beforeunload', function(event) {
+    event.preventDefault();
+    event.returnValue = '';
+  });
   const handleThemeMode = (value) => {
     setThemeMode(value);
   };
